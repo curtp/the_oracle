@@ -46,7 +46,7 @@ To display all entries in a list:
 e.g. !oracle display "even odds"
 
 !oracle list "[list name]"
-e.g. !oracle display "even odds"
+e.g. !oracle list "even odds"
 ```
 
 To remove an answer from a list:
