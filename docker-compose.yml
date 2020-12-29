@@ -3,8 +3,13 @@ services:
   dynamodb-local:
     image: amazon/dynamodb-local:latest
     container_name: dynamodb-local
+    entrypoint: java
+    restart: always
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
     ports:
       - "8000:8000"
+    volumes:
+      - ./data:/data
 
   discord-bot:
     build: .

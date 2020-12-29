@@ -1,6 +1,9 @@
 # Used by dotenv library to load environment variables.
 .env
 
+# Ignore any data
+data
+
 ## Environment normalization:
 /.bundle/
 /vendor/bundle
