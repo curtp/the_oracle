@@ -58,7 +58,7 @@ module Oracle
         command.event << "Oracle Lists"
         command.event << "====================="
         lists.each do |list|
-          command.event << "#{list.name} - #{list.search_name}"
+          command.event << list.name
         end
       end
     end
