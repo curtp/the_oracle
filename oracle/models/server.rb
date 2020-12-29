@@ -10,7 +10,7 @@ module Oracle
       end
 
       def self.bot_left_server(event)
-        Oracle::Models::List.remove_all_lists_for_server(event.server)
+        # Oracle::Models::List.remove_all_lists_for_server(event.server)
         logger.info("bot just left server: #{event.server}, the server count is now #{event.bot.servers.count}")
       end
     end
