@@ -36,11 +36,16 @@ Here are the two commands to ask questions of the list and sample answers:
 To display all lists for the server:
 ```
 !oracle display
+
+!oracle list
 ```
 
 To display all entries in a list:
 ```
 !oracle display "[list name]"
+e.g. !oracle display "even odds"
+
+!oracle list "[list name]"
 e.g. !oracle display "even odds"
 ```
 
