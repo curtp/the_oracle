@@ -8,23 +8,25 @@ require_relative "./help_command_processor"
 module Oracle
   module CommandProcessors
     class OracleCommandProcessor
+      include EasyLogging
 
       def self.execute(command)
+        logger.info("Server: #{command.event.server.id}, User: #{command.event.user.name} issued command: #{command.event.message.content}")
         if command.help_command?
           processor = HelpCommandProcessor.new(command)
           result = processor.process
         else
           case command.base_instruction
-          when "add"
+          when "add".freeze
             processor = AddCommandProcessor.new(command)
             result = processor.process
-          when "remove"
+          when "remove".freeze
             processor = RemoveCommandProcessor.new(command)
             result = processor.process
-          when "display"
+          when "display".freeze
             processor = DisplayCommandProcessor.new(command)
             result = processor.process
-          when "ask"
+          when "ask".freeze
             processor = AskCommandProcessor.new(command)
             result = processor.process
           else
@@ -37,25 +39,6 @@ module Oracle
           command.event << "Error: #{result[:error_message]}"
           command.event << ""
           HelpCommandProcessor.build_help_message(command.event)
-        end
-      end
-
-      def original
-        response = ""
-        puts "Message"
-        puts event.message.inspect
-        puts ""
-        puts "Server"
-        puts event.server.inspect
-        puts ""
-        puts "User"
-        puts event.user.inspect
-
-        result = Oracle::Validators::CommandValidator.validate(event)
-        if result[:valid]
-          response = "will soon manage a oracle!"
-        else
-          build_help_message(event)
         end
       end
     end

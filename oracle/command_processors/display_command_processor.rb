@@ -4,19 +4,18 @@ require_relative "../models/list"
 module Oracle
   module CommandProcessors
     class DisplayCommandProcessor < BaseCommandProcessor
+      include EasyLogging
 
       def process
         result = {success: true, error_message: ""}
         validation_result = validate_command
-        puts "DisplayCommandProcessor validation result: #{validation_result}"
+        logger.debug {"process: validation result: #{validation_result}"}
         if validation_result[:valid]
 
           if command.instructions.size == 1
-            puts "Displaying all lists for server"
             result = display_server_lists
             return result if !result[:success]
           else
-            puts "Displaying an individual list"
             result = display_list
             return result if !result[:success]
           end
@@ -25,7 +24,7 @@ module Oracle
           result[:success] = false
           result[:error_message] = validation_result[:error_message]
         end
-        puts "DisplayCommandProcessor returning result: #{result}"
+        logger.debug {"process: returning result: #{result}"}
         return result
       end
 

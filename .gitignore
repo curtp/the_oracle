@@ -4,6 +4,9 @@
 # Ignore any data
 data
 
+# Ignore log files
+logs
+
 ## Environment normalization:
 /.bundle/
 /vendor/bundle

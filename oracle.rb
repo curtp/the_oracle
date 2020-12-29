@@ -1,6 +1,11 @@
 require 'dynamoid'
 require 'discordrb'
 require 'dotenv/load'
+require 'easy_logging'
+
+# Global pre-configuration for every Logger instance
+EasyLogging.log_destination = 'logs/the_oracle.log'
+EasyLogging.level = Logger::DEBUG
 
 # Configure DB access - This needs to be moved into a configuration file somewhere
 Dynamoid.configure do |config|

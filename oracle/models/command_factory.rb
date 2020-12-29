@@ -6,19 +6,20 @@ require_relative "./help_command"
 module Oracle
   module Models
     class CommandFactory
+      include EasyLogging
 
       def self.create_command_for_event(event)
+        logger.debug {"Creating command object for command: #{event.message.content.downcase.split(" ")[1]}"}
         case event.message.content.downcase.split(" ")[1]
-        when "add"
+        when "add".freeze
           return AddCommand.new(event)
-        when "remove"
+        when "remove".freeze
           return RemoveCommand.new(event)
-        when "display"
+        when "display".freeze
           return DisplayCommand.new(event)
-        when "ask"
+        when "ask".freeze
           return AskCommand.new(event)
         else
-          puts "creating the help command"
           return HelpCommand.new(event)
         end
       end

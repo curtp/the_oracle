@@ -37,6 +37,7 @@ GEM
       activemodel (>= 4)
       aws-sdk-dynamodb (~> 1.0)
       concurrent-ruby (>= 1.0)
+    easy_logging (0.4.0)
     event_emitter (0.2.6)
     ffi (1.14.2)
     http-accept (1.7.0)
@@ -75,6 +76,7 @@ DEPENDENCIES
   discordrb
   dotenv
   dynamoid
+  easy_logging
 
 BUNDLED WITH
    2.1.4

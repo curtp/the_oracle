@@ -6,7 +6,6 @@ module Oracle
     class HelpCommandProcessor < BaseCommandProcessor
 
       def process
-        puts "processing the help command"
         HelpCommandProcessor.build_help_message(command.event)
         result = {success: true, error_message: ""}
         return result
