@@ -11,34 +11,39 @@ module Oracle
       include EasyLogging
 
       def self.execute(command)
-        logger.info("Server: #{command.event.server.id}, User: #{command.event.user.name} issued command: #{command.event.message.content}")
-        if command.help_command?
-          processor = HelpCommandProcessor.new(command)
-          result = processor.process
-        else
-          case command.base_instruction
-          when "add".freeze
-            processor = AddCommandProcessor.new(command)
-            result = processor.process
-          when "remove".freeze
-            processor = RemoveCommandProcessor.new(command)
-            result = processor.process
-          when "display".freeze
-            processor = DisplayCommandProcessor.new(command)
-            result = processor.process
-          when "ask".freeze
-            processor = AskCommandProcessor.new(command)
-            result = processor.process
-          else
+        begin
+          logger.info("Server: #{command.event.server.id}, User: #{command.event.user.name} issued command: #{command.event.message.content}")
+          if command.help_command?
             processor = HelpCommandProcessor.new(command)
             result = processor.process
+          else
+            case command.base_instruction
+            when "add".freeze
+              processor = AddCommandProcessor.new(command)
+              result = processor.process
+            when "remove".freeze
+              processor = RemoveCommandProcessor.new(command)
+              result = processor.process
+            when "display".freeze
+              processor = DisplayCommandProcessor.new(command)
+              result = processor.process
+            when "ask".freeze
+              processor = AskCommandProcessor.new(command)
+              result = processor.process
+            else
+              processor = HelpCommandProcessor.new(command)
+              result = processor.process
+            end
           end
-        end
 
-        if !result[:success]
-          command.event << "Error: #{result[:error_message]}"
-          command.event << ""
-          HelpCommandProcessor.build_help_message(command.event)
+          if !result[:success]
+            command.event << "Error: #{result[:error_message]}"
+            command.event << ""
+            HelpCommandProcessor.build_help_message(command.event)
+          end
+        rescue Exception => e
+          logger.error("Issue processing request: #{e}")
+          logger.error(e.backtrace.join("\n"))
         end
       end
     end

@@ -8,7 +8,7 @@ module Oracle
       end
 
       def content
-        event.message.content.downcase
+        event.message.content
       end
 
       def instructions

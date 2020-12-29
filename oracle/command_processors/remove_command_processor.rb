@@ -38,7 +38,7 @@ module Oracle
       private
 
       def remove_entire_list(list)
-        list.delete
+        Oracle::Models::List.where(id: list.id).destroy_all
       end
 
       def remove_entry_from_list(list)

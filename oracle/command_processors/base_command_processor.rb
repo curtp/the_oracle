@@ -19,18 +19,20 @@ module Oracle
       protected
 
       def validate_command
-        result = Oracle::Validators::CommandValidator.validate(command)
+        Oracle::Validators::CommandValidator.validate(command)
       end
 
       def find_list
         begin
-          Oracle::Models::List.where(server_id: command.event.server.id, name: command.list_name).first
+          Oracle::Models::List.where(server_id: command.event.server.id,
+            search_name: command.list_name.strip.downcase).first
         rescue Aws::DynamoDB::Errors::ResourceNotFoundException => e
         end
       end
 
       def new_list
-        Oracle::Models::List.new(server_id: command.event.server.id, name: command.list_name)
+        Oracle::Models::List.new(server_id: command.event.server.id,
+          name: command.list_name.strip)
       end
 
       def server_lists
