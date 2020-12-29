@@ -35,6 +35,11 @@ module Oracle
         end
       end
 
+      # Removes all lists associated to a server
+      def self.remove_all_lists_for_server(server_id)
+        Oracle::Models::List.where(server_id: server_id).destroy_all
+      end
+
       private
 
       def before_save_processing

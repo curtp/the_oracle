@@ -41,6 +41,7 @@ end
 
 require_relative './oracle/command_processors/oracle_command_processor'
 require_relative "./oracle/models/command_factory"
+require_relative "./oracle/models/server"
 
 # Move the token into ENV files
 bot = Discordrb::Commands::CommandBot.new(token: ENV["BOT_TOKEN"], prefix: "!")
@@ -48,6 +49,16 @@ bot = Discordrb::Commands::CommandBot.new(token: ENV["BOT_TOKEN"], prefix: "!")
 # Create the command for the bot and process the events
 bot.command(:oracle, description: "Master command for communicating with the Oracle") do |event|
   Oracle::CommandProcessors::OracleCommandProcessor.execute(Oracle::Models::CommandFactory.create_command_for_event(event))
+end
+
+# This runs when the bot is added to a server.
+bot.server_create do |event|
+  Oracle::Models::Server.bot_joined_server(event)
+end
+
+# This runs when the bot is removed from a server.
+bot.server_delete do |event|
+  Oracle::Models::Server.bot_left_server(event)
 end
 
 # Startup the bot
