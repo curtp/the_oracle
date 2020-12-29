@@ -7,6 +7,9 @@ module Oracle
       include Dynamoid::Document
       include EasyLogging
 
+      LIST_NAME_MAX_LENGTH = 50
+      ENTRY_MAX_LENGTH = 50
+
       # Sort index on name
       field :name
       range :search_name, :string
@@ -17,13 +20,13 @@ module Oracle
       # Secondary index on server_id
       global_secondary_index hash_key: :server_id, projected_attributes: :all
 
-      before_save :set_search_name
+      before_save :before_save_processing
 
       def add_entry(entry)
         if entries.nil?
           self.entries = []
         end
-        entries.push(entry)
+        entries.push(entry.slice(0...ENTRY_MAX_LENGTH))
       end
 
       def remove_entry(entry)
@@ -34,9 +37,12 @@ module Oracle
 
       private
 
-      def set_search_name
-        logger.debug("setting search name")
+      def before_save_processing
+        logger.debug {"name before slice: #{self.name}"}
+        self.name = self.name.slice(0...LIST_NAME_MAX_LENGTH)
+        logger.debug {"name after slice: #{self.name}"}
         self.search_name = self.name.strip.downcase
+        logger.debug {"search name: #{self.search_name}"}
       end
 
     end
