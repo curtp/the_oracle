@@ -1,6 +1,8 @@
 # The Oracle
 Discord bot providing answers to questions
 
+This is a work in progress and not ready for general use. Message me if you'd like to try it out. There is a very limited number of servers at this time.
+
 ## Hot It Works
 The oracle works off of lists of answers. It is up to the members of the server
 to create the lists. Each server can have multiple lists. Once the lists are
