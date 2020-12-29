@@ -4,9 +4,7 @@ require 'dotenv/load'
 
 # Configure DB access - This needs to be moved into a configuration file somewhere
 Dynamoid.configure do |config|
-  # config.namespace = "dynamoid_development"
   config.namespace = ENV["DB_NAMESPACE"]
-#  config.endpoint = "http://dynamodb-local:8000"
   config.endpoint = ENV["DB_ENDPOINT"]
 end
 Dynamoid.config.logger.level = :debug
@@ -40,11 +38,7 @@ require_relative './oracle/command_processors/oracle_command_processor'
 require_relative "./oracle/models/command_factory"
 
 # Move the token into ENV files
-# bot = Discordrb::Commands::CommandBot.new(token: "NzkzMTU1ODQ5NzczNzc2OTA4.X-oJ8g.WFQe0Bi3IbNd9jdpqfPQmOWKKrg", prefix: "!")
 bot = Discordrb::Commands::CommandBot.new(token: ENV["BOT_TOKEN"], prefix: "!")
-
-# Invite URL
-# https://discord.com/api/oauth2/authorize?client_id=793155849773776908&permissions=3072&scope=bot
 
 # Create the command for the bot and process the events
 bot.command(:oracle, description: "Master command for communicating with the Oracle") do |event|
