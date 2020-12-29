@@ -6,7 +6,7 @@ module Oracle
       include EasyLogging
 
       def self.bot_joined_server(event)
-        logger.info("bot just joined `#{event.server.name}` (ID: #{event.server.id}), owned by `#{event.server.owner.distinct}` the server count is now #{event.bot.servers.count}")
+        logger.info("bot just joined server: `#{event.server.name}` (ID: #{event.server.id}), owned by `#{event.server.owner.distinct}` the server count is now #{event.bot.servers.count}")
       end
 
       def self.bot_left_server(event)
