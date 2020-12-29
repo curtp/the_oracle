@@ -9,12 +9,13 @@ module Oracle
           return {valid: false, error_message: "Unknown command"}
         end
 
+        logger.debug {"creating validator for command: #{command.base_instruction.downcase.strip}"}
         case command.base_instruction.downcase.strip
         when "add".freeze
           validator = AddValidator.new(command)
         when "remove".freeze
           validator = RemoveValidator.new(command)
-        when "display".freeze
+        when "display".freeze, "list".freeze
           validator = DisplayValidator.new(command)
         when "ask".freeze
           validator = AskValidator.new(command)

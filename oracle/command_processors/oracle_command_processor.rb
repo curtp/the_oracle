@@ -24,7 +24,7 @@ module Oracle
             when "remove".freeze
               processor = RemoveCommandProcessor.new(command)
               result = processor.process
-            when "display".freeze
+            when "display".freeze, "list".freeze
               processor = DisplayCommandProcessor.new(command)
               result = processor.process
             when "ask".freeze

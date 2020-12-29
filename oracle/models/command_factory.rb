@@ -15,7 +15,7 @@ module Oracle
           return AddCommand.new(event)
         when "remove".freeze
           return RemoveCommand.new(event)
-        when "display".freeze
+        when "display".freeze, "list".freeze
           return DisplayCommand.new(event)
         when "ask".freeze
           return AskCommand.new(event)
