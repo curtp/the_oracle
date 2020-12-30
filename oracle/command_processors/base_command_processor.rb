@@ -2,6 +2,8 @@ require_relative "../validators/command_validator"
 module Oracle
   module CommandProcessors
     class BaseCommandProcessor
+      include EasyLogging
+
       attr_accessor :command
 
       def initialize(command)
@@ -25,20 +27,29 @@ module Oracle
       def find_list
         begin
           Oracle::Models::List.where(server_id: command.event.server.id,
-            search_name: command.list_name.strip.downcase).first
-        rescue Aws::DynamoDB::Errors::ResourceNotFoundException => e
+            name: command.list_name.strip).first
+        rescue Exception => e
+          logger.error("Issue loading list: #{e}")
+          logger.error(e.backtrace.join("\n"))
         end
       end
 
       def new_list
-        Oracle::Models::List.new(server_id: command.event.server.id,
-          name: command.list_name.strip)
+        begin
+          Oracle::Models::List.new(server_id: command.event.server.id,
+            name: command.list_name.strip)
+        rescue Exception => e
+          logger.error("Issue Creating list: #{e}")
+          logger.error(e.backtrace.join("\n"))
+        end
       end
 
       def server_lists
         begin
-          Oracle::Models::List.where(server_id: command.event.server.id).all
-        rescue Aws::DynamoDB::Errors::ResourceNotFoundException => e
+          Oracle::Models::List.where(server_id: command.event.server.id).order(:name).all
+        rescue Exception => e
+          logger.error("Issue loading sever lists: #{e}")
+          logger.error(e.backtrace.join("\n"))
         end
       end
     end

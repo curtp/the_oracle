@@ -1,30 +1,16 @@
 version: "3.3"
 services:
-  dynamodb-local:
-    image: amazon/dynamodb-local:latest
-    container_name: dynamodb-local
-    entrypoint: java
-    restart: always
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath /data"
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./data:/data
 
   discord-bot:
     build: .
     container_name: discord_bot
-    depends_on:
-      - "dynamodb-local"
     ports:
       - "8080:8080"
-    links:
-      - "dynamodb-local"
     environment:
       - AWS_ACCESS_KEY_ID="DO-NOT-PUT-A-REAL-KEY-HERE"
       - AWS_SECRET_ACCESS_KEY="DO-NOT-PUT-A-REAL-KEY-HERE"
       - AWS_REGION="us-east-1"
-    restart: always
+    # restart: always
     command: "bundle exec ruby oracle.rb"
     volumes:
       - ./:/the_oracle

@@ -3,6 +3,7 @@ require_relative "./remove_command"
 require_relative "./display_command"
 require_relative "./ask_command"
 require_relative "./help_command"
+require_relative "./rename_command"
 module Oracle
   module Models
     class CommandFactory
@@ -19,6 +20,8 @@ module Oracle
           return DisplayCommand.new(event)
         when "ask".freeze
           return AskCommand.new(event)
+        when "rename".freeze
+          return RenameCommand.new(event)
         else
           return HelpCommand.new(event)
         end

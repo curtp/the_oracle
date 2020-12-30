@@ -19,6 +19,8 @@ module Oracle
           validator = DisplayValidator.new(command)
         when "ask".freeze
           validator = AskValidator.new(command)
+        when "rename".freeze
+          validator = RenameValidator.new(command)
         else
           return {valid: false, error_message: "Unknown command"}
         end
@@ -96,6 +98,20 @@ module Oracle
           return {valid: false,
             error_message: "To ask the Oracle a question: !oracle ask 'list name' ['question']"}
         end
+        return {valid: true, error_message: ""}
+      end
+    end
+
+    class RenameValidator < BaseValidator
+      include EasyLogging
+
+      def validate
+        logger.debug {"validating instructions: #{command.instructions}"}
+        logger.debug {"content: #{command.content}"}
+        if command.instructions.size != 4
+          return {valid: false, error_message: "To rename a list: !oracle rename 'old name' to 'new name'"}
+        end
+
         return {valid: true, error_message: ""}
       end
     end

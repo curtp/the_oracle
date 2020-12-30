@@ -1,24 +1,14 @@
 require_relative "./base_model"
-require "dynamoid"
 
 module Oracle
   module Models
-    class List < BaseModel
-      include Dynamoid::Document
+    class List < ActiveRecord::Base
       include EasyLogging
 
       LIST_NAME_MAX_LENGTH = 50
       ENTRY_MAX_LENGTH = 50
 
-      # Sort index on name
-      field :name
-      range :search_name, :string
-      field :server_id
-      field :entries, :array, of: :string
-      field :lock_version, :integer
-
-      # Secondary index on server_id
-      global_secondary_index hash_key: :server_id, projected_attributes: :all
+      serialize :entries, Array
 
       before_save :before_save_processing
 
@@ -46,8 +36,6 @@ module Oracle
         logger.debug {"name before slice: #{self.name}"}
         self.name = self.name.slice(0...LIST_NAME_MAX_LENGTH)
         logger.debug {"name after slice: #{self.name}"}
-        self.search_name = self.name.strip.downcase
-        logger.debug {"search name: #{self.search_name}"}
       end
 
     end

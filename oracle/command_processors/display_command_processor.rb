@@ -35,7 +35,7 @@ module Oracle
         list = find_list
         if !list.present?
           result[:success] = false
-          result[:error_message] = nil
+          result[:error_message] = "List not found"
           return result
         end
         print_list(list)
@@ -43,13 +43,17 @@ module Oracle
       end
 
       def display_server_lists
+        logger.debug {"displaying server lists"}
         result = {success: true, error_message: nil}
+        logger.debug {"retrieving server lists"}
         lists = server_lists
         if !lists.present?
+          logger.debug {"no lists... returning an error"}
           result[:success] = false
-          result[:error_message] = nil
+          result[:error_message] = "No lists found"
           return result
         end
+        logger.debug {"got server lists: #{lists.size}"}
         print_server_lists(lists)
         return result
       end

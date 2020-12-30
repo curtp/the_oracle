@@ -1,33 +1,18 @@
-require 'dynamoid'
 require 'discordrb'
 require 'dotenv/load'
 require 'easy_logging'
+require "active_record"
+require_relative './oracle/command_processors/oracle_command_processor'
+require_relative "./oracle/models/command_factory"
+require_relative "./oracle/models/server"
+require_relative "./oracle/database/migration"
 
 # Global pre-configuration for every Logger instance
 EasyLogging.log_destination = 'logs/the_oracle.log'
 EasyLogging.level = Logger::DEBUG
 
-# Configure DB access - This needs to be moved into a configuration file somewhere
-Dynamoid.configure do |config|
-  config.namespace = ENV["DB_NAMESPACE"]
-  config.endpoint = ENV["DB_ENDPOINT"]
-end
-Dynamoid.config.logger.level = :debug
-
-# This is here to wipe out the DB tables when major changes are needed. this
-# is only used during development. Once the DB schema settles down, this clan
-# be removed or moved into a utils folder
-if false == true
-  Dynamoid.adapter.list_tables.each do |table|
-    # Only delete tables in our namespace
-    if table =~ /^#{Dynamoid::Config.namespace}/
-      Dynamoid.adapter.delete_table(table)
-    end
-  end
-  Dynamoid.adapter.tables.clear
-  # Recreate all tables to avoid unexpected errors
-  Dynamoid.included_models.each { |m| m.create_table(sync: true) }
-end
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'data/server_lists.db')
+Oracle::Database::Migration.migrate(:up)
 
 # String tokenizer for parsing the commands
 class String
@@ -39,9 +24,6 @@ class String
   end
 end
 
-require_relative './oracle/command_processors/oracle_command_processor'
-require_relative "./oracle/models/command_factory"
-require_relative "./oracle/models/server"
 
 # Move the token into ENV files
 bot = Discordrb::Commands::CommandBot.new(token: ENV["BOT_TOKEN"], prefix: "!")
