@@ -39,7 +39,7 @@ module Oracle
           if !result[:success]
             command.event << "Error: #{result[:error_message]}"
             command.event << ""
-            HelpCommandProcessor.build_help_message(command.event)
+            command.event << "See !oracle help for usage information"
           end
         rescue Exception => e
           logger.error("Issue processing request: #{e}")

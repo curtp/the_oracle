@@ -12,6 +12,7 @@ module Oracle
             table.index :server_id
             table.index :name
           end
+          add_index :lists, [:server_id, :name]
         end
       end
 

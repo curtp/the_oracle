@@ -26,8 +26,8 @@ module Oracle
 
       def find_list
         begin
-          Oracle::Models::List.where(server_id: command.event.server.id,
-            name: command.list_name.strip).first
+          Oracle::Models::List.where(["server_id == ? and name collate nocase == ?",
+            command.event.server.id, command.list_name.strip]).first
         rescue Exception => e
           logger.error("Issue loading list: #{e}")
           logger.error(e.backtrace.join("\n"))
