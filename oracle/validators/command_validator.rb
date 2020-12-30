@@ -4,6 +4,7 @@ module Oracle
       include EasyLogging
 
       def self.validate(command)
+        logger = EasyLogging.configure_logger_for(self.class.name)
         logger.debug {"instruction size: #{command.instructions.size}"}
         if command.instructions.size < 1
           return {valid: false, error_message: "Unknown command"}

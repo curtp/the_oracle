@@ -1,7 +1,7 @@
 require 'discordrb'
 require 'dotenv/load'
-require 'easy_logging'
 require "active_record"
+require 'easy_logging'
 require_relative './oracle/command_processors/oracle_command_processor'
 require_relative "./oracle/models/command_factory"
 require_relative "./oracle/models/server"
@@ -23,7 +23,6 @@ class String
       map {|s| s.gsub(/(^ +)|( +$)|(^["']+)|(["']+$)/,'')}
   end
 end
-
 
 # Move the token into ENV files
 bot = Discordrb::Commands::CommandBot.new(token: ENV["BOT_TOKEN"], prefix: "!")

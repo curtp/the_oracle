@@ -12,6 +12,8 @@ module Oracle
       include EasyLogging
 
       def self.execute(command)
+        logger = EasyLogging.configure_logger_for(self.class.name)
+
         begin
           logger.info("Server: #{command.event.server.id}, User: #{command.event.user.name} issued command: #{command.event.message.content}")
 
