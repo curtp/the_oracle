@@ -19,6 +19,8 @@ module Oracle
         event << " "
         event << "When creating lists, put quotes around answers or list names which have spaces."
         event << " "
+        event << "You can use *!oracle* or *!o* to talk to the oracle."
+        event << " "
         event << "**-- Manage Lists --**"
         event << "!oracle add '[answer]' to '[list name]' - Adds an answer to the named list: !oracle add 'not today' to 'very unlikely'"
         event << "!oracle remove '[list name]' - Removes the named list: !oracle remove 'very unlikely'"

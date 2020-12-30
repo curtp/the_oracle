@@ -29,7 +29,7 @@ end
 bot = Discordrb::Commands::CommandBot.new(token: ENV["BOT_TOKEN"], prefix: "!")
 
 # Create the command for the bot and process the events
-bot.command(:oracle, description: "Master command for communicating with the Oracle") do |event|
+bot.command(:oracle, aliases: [:o], description: "Master command for communicating with the Oracle") do |event|
   Oracle::CommandProcessors::OracleCommandProcessor.execute(Oracle::Models::CommandFactory.create_command_for_event(event))
 end
 
