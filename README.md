@@ -51,6 +51,12 @@ e.g. !oracle display "even odds"
 e.g. !oracle list "even odds"
 ```
 
+To rename a list:
+```
+!oracle rename "[list name]" to "[new list name]"
+e.g. !oracle rename "even odds" to "Odds - Even"
+```
+
 To remove an answer from a list:
 ```
 !oracle remove "[answer]" from "[list name]"
