@@ -76,7 +76,5 @@ e.g. !oracle remove "even odds"
 5. Add the following to the .env file:
 ```
 BOT_TOKEN="[Paste Discord Bot Token Here]"
-DB_ENDPOINT="http://dynamodb-local:8000"
-DB_NAMESPACE="dynamoid_development"
 ```
 6. Run docker-compose up
