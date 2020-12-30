@@ -2,7 +2,6 @@ require_relative "../validators/command_validator"
 module Oracle
   module CommandProcessors
     class BaseCommandProcessor
-      include EasyLogging
 
       attr_accessor :command
 
@@ -29,8 +28,8 @@ module Oracle
           Oracle::Models::List.where(["server_id == ? and name collate nocase == ?",
             command.event.server.id, command.list_name.strip]).first
         rescue Exception => e
-          logger.error("Issue loading list: #{e}")
-          logger.error(e.backtrace.join("\n"))
+          OracleLogger.log.error("BaseCommandProcessor: Issue loading list: #{e}")
+          OracleLogger.log.error(e.backtrace.join("\n"))
         end
       end
 
@@ -39,8 +38,8 @@ module Oracle
           Oracle::Models::List.new(server_id: command.event.server.id,
             name: command.list_name.strip)
         rescue Exception => e
-          logger.error("Issue Creating list: #{e}")
-          logger.error(e.backtrace.join("\n"))
+          OracleLogger.log.error("BaseCommandProcessor: Issue Creating list: #{e}")
+          OracleLogger.log.error(e.backtrace.join("\n"))
         end
       end
 
@@ -48,8 +47,8 @@ module Oracle
         begin
           Oracle::Models::List.where(server_id: command.event.server.id).order(:name).all
         rescue Exception => e
-          logger.error("Issue loading sever lists: #{e}")
-          logger.error(e.backtrace.join("\n"))
+          OracleLogger.log.error("BaseCommandProcessor: Issue loading sever lists: #{e}")
+          OracleLogger.log.error(e.backtrace.join("\n"))
         end
       end
     end

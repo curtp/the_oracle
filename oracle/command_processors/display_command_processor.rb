@@ -4,12 +4,11 @@ require_relative "../models/list"
 module Oracle
   module CommandProcessors
     class DisplayCommandProcessor < BaseCommandProcessor
-      include EasyLogging
 
       def process
         result = {success: true, error_message: ""}
         validation_result = validate_command
-        logger.debug {"process: validation result: #{validation_result}"}
+        OracleLogger.log.debug {"DisplayCommandProcessor.process: validation result: #{validation_result}"}
         if validation_result[:valid]
 
           if command.instructions.size == 1
@@ -24,7 +23,7 @@ module Oracle
           result[:success] = false
           result[:error_message] = validation_result[:error_message]
         end
-        logger.debug {"process: returning result: #{result}"}
+        OracleLogger.log.debug {"DisplayCommandProcessor.process: returning result: #{result}"}
         return result
       end
 
@@ -43,17 +42,17 @@ module Oracle
       end
 
       def display_server_lists
-        logger.debug {"displaying server lists"}
+        OracleLogger.log.debug {"DisplayCommandProcessor: displaying server lists"}
         result = {success: true, error_message: nil}
-        logger.debug {"retrieving server lists"}
+        OracleLogger.log.debug {"DisplayCommandProcessor: retrieving server lists"}
         lists = server_lists
         if !lists.present?
-          logger.debug {"no lists... returning an error"}
+          OracleLogger.log.debug {"DisplayCommandProcessor: no lists... returning an error"}
           result[:success] = false
           result[:error_message] = "No lists found"
           return result
         end
-        logger.debug {"got server lists: #{lists.size}"}
+        OracleLogger.log.debug {"DisplayCommandProcessor: got server lists: #{lists.size}"}
         print_server_lists(lists)
         return result
       end

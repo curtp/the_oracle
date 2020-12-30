@@ -1,16 +1,14 @@
 module Oracle
   module Validators
     class CommandValidator
-      include EasyLogging
 
       def self.validate(command)
-        logger = EasyLogging.configure_logger_for(self.class.name)
-        logger.debug {"instruction size: #{command.instructions.size}"}
+        OracleLogger.log.debug {"CommandValidator: instruction size: #{command.instructions.size}"}
         if command.instructions.size < 1
           return {valid: false, error_message: "Unknown command"}
         end
 
-        logger.debug {"creating validator for command: #{command.base_instruction.downcase.strip}"}
+        OracleLogger.log.debug {"CommandValidator: creating validator for command: #{command.base_instruction.downcase.strip}"}
         case command.base_instruction.downcase.strip
         when "add".freeze
           validator = AddValidator.new(command)
@@ -33,7 +31,6 @@ module Oracle
     private
 
     class BaseValidator
-      include EasyLogging
 
       attr_accessor :command
 
@@ -47,11 +44,8 @@ module Oracle
     end
 
     class AddValidator < BaseValidator
-      include EasyLogging
 
       def validate
-        logger.debug {"validating instructions: #{command.instructions}"}
-        logger.debug {"content: #{command.content}"}
         if command.instructions.size != 4
           return {valid: false, error_message: "To add an answer to the list: add 'new entry' to 'list name'"}
         end
@@ -61,12 +55,8 @@ module Oracle
     end
 
     class RemoveValidator < BaseValidator
-      include EasyLogging
 
       def validate
-        logger.debug {"validating instructions: #{command.instructions}"}
-        logger.debug {"content: #{command.content}"}
-        logger.debug {"instructions size: #{command.instructions.size}"}
         if command.instructions.size != 4 && command.instructions.size != 2
           return {valid: false,
             error_message: "To remove an answer from the list: remove 'old entry' from 'list name'"}
@@ -76,11 +66,8 @@ module Oracle
     end
 
     class DisplayValidator < BaseValidator
-      include EasyLogging
 
       def validate
-        logger.debug {"validating instructions: #{command.instructions}"}
-        logger.debug {"content: #{command.content}"}
         if command.instructions.size != 2 && command.instructions.size != 1
           return {valid: false,
             error_message: "To display a list: display 'list name'"}
@@ -90,11 +77,8 @@ module Oracle
     end
 
     class AskValidator < BaseValidator
-      include EasyLogging
 
       def validate
-        logger.debug {"validating instructions: #{command.instructions}"}
-        logger.debug {"content: #{command.content}"}
         if command.instructions.size != 2 && command.instructions.size != 3
           return {valid: false,
             error_message: "To ask the Oracle a question: !oracle ask 'list name' ['question']"}
@@ -104,11 +88,8 @@ module Oracle
     end
 
     class RenameValidator < BaseValidator
-      include EasyLogging
 
       def validate
-        logger.debug {"validating instructions: #{command.instructions}"}
-        logger.debug {"content: #{command.content}"}
         if command.instructions.size != 4
           return {valid: false, error_message: "To rename a list: !oracle rename 'old name' to 'new name'"}
         end

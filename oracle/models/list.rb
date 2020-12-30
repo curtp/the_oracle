@@ -3,7 +3,6 @@ require_relative "./base_model"
 module Oracle
   module Models
     class List < ActiveRecord::Base
-      include EasyLogging
 
       LIST_NAME_MAX_LENGTH = 50
       ENTRY_MAX_LENGTH = 50
@@ -33,9 +32,7 @@ module Oracle
       private
 
       def before_save_processing
-        logger.debug {"name before slice: #{self.name}"}
         self.name = self.name.slice(0...LIST_NAME_MAX_LENGTH)
-        logger.debug {"name after slice: #{self.name}"}
       end
 
     end

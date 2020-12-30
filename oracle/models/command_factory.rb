@@ -7,12 +7,10 @@ require_relative "./rename_command"
 module Oracle
   module Models
     class CommandFactory
-      include EasyLogging
 
       def self.create_command_for_event(event)
-        logger = EasyLogging.configure_logger_for(self.class.name)
-        
-        logger.debug {"Creating command object for command: #{event.message.content.downcase.strip.split(" ")[1]}"}
+
+        OracleLogger.log.debug {"CommandFactory: Creating command object for command: #{event.message.content.downcase.strip.split(" ")[1]}"}
         case event.message.content.downcase.strip.split(" ")[1]
         when "add".freeze
           return AddCommand.new(event)
