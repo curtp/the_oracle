@@ -14,10 +14,24 @@ module Oracle
           end
           add_index :lists, [:server_id, :name]
         end
+
+        if !table_exists?(:servers)
+          create_table :servers do |table|
+            table.string :server_id
+            table.string :server_name
+            table.string :added_by_user
+            table.datetime :removed_on
+            table.string :removed_by_user
+            table.index :server_id
+            table.index :removed_on
+            table.timestamps
+          end
+        end
       end
 
       def down
         drop_table :lists
+        drop_table :servers
       end
     end
   end
