@@ -11,7 +11,7 @@ module Oracle
 
       def print_list(list)
         command.event << "```"
-        command.event << "List: #{list.number} - #{list.name}"
+        command.event << "List: #{list.number} :: #{list.name}"
         command.event << "====================="
         list.entries.each do |entry|
           command.event << entry
