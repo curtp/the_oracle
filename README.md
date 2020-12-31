@@ -30,7 +30,7 @@ You can change these lists to suit your needs, or remove them from the oracle (s
 6) Duplicate entries can be added to a list, however, entries are removed by name. In the examples above, removing No from a list will remove ALL No entries.
 7) Think beyond question/answer interactions. This works great for any random table.
 8) Name lists so they are grouped together. Lists are always displayed in alphabetical order.
-9) After adding the list, use the assigned number to intereact with it and save typing. This makes it much easier to use on a phone.
+9) After adding the list, use the assigned number to interact with it and save typing. This makes it much easier to use on a phone.
 
 ## Talking to the Oracle
 There are two ways to talk to the oracle. Either of these will work
