@@ -6,11 +6,7 @@ services:
     container_name: discord_bot
     ports:
       - "8080:8080"
-    environment:
-      - AWS_ACCESS_KEY_ID="DO-NOT-PUT-A-REAL-KEY-HERE"
-      - AWS_SECRET_ACCESS_KEY="DO-NOT-PUT-A-REAL-KEY-HERE"
-      - AWS_REGION="us-east-1"
-    # restart: always
+    restart: always
     command: "bundle exec ruby oracle.rb"
     volumes:
       - ./:/the_oracle
