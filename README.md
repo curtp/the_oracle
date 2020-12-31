@@ -21,7 +21,7 @@ When the bot is first added to the server, the following 3 lists are added.
 
 You can change these lists to suit your needs, or remove them from the oracle (see below).
 
-## Some things to know
+## Some Things to Know
 1) Only server owners can add, edit, or remove lists.
 2) Anyone can view lists or ask the oracle questions.
 3) List names can only be 50 characters long. Anything longer than 50 characters is automatically shortened to 50.
