@@ -8,7 +8,8 @@ The oracle works off of lists of answers. It is up to the server owners to
 create and manage the lists. Each server can have multiple lists. Once the 
 lists are created, then the oracle can be asked for answers from those lists.
 
-When the bot is first added to the server, the following 3 are added:
+When the bot is first added to the server, the following 3 are added.
+
 | Odds - Even           | Odds - Unlikely       | Odds - Likely         |
 | --------------------- | --------------------- | --------------------- |
 | No, and complication  | No, and complication  | No                    |
@@ -17,6 +18,8 @@ When the bot is first added to the server, the following 3 are added:
 | Yes, but complication | No, but benefit       | Yes                   |
 | Yes                   | Yes, but complication | Yes                   |
 | Yes, and benefit      | Yes                   | Yes, and benefit      |
+
+You can change these lists to suit your needs, or remove them from the oracle (see below).
 
 ## Talking to the Oracle
 There are two ways to talk to the oracle. Either of these will work
