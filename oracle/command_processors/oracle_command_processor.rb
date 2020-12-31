@@ -5,6 +5,7 @@ require_relative "./display_command_processor"
 require_relative "./ask_command_processor"
 require_relative "./help_command_processor"
 require_relative "./rename_command_processor"
+require_relative "./renumber_command_processor"
 
 module Oracle
   module CommandProcessors
@@ -29,6 +30,8 @@ module Oracle
               processor = AskCommandProcessor.new(command)
             when "rename".freeze
               processor = RenameCommandProcessor.new(command)
+            when "renumber".freeze
+              processor = RenumberCommandProcessor.new(command)
             else
               processor = HelpCommandProcessor.new(command)
             end

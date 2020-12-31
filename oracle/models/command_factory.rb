@@ -4,6 +4,7 @@ require_relative "./display_command"
 require_relative "./ask_command"
 require_relative "./help_command"
 require_relative "./rename_command"
+require_relative "./renumber_command"
 module Oracle
   module Models
     class CommandFactory
@@ -22,6 +23,8 @@ module Oracle
           return AskCommand.new(event)
         when "rename".freeze
           return RenameCommand.new(event)
+        when "renumber".freeze
+          return RenumberCommand.new(event)
         else
           return HelpCommand.new(event)
         end

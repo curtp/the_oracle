@@ -20,6 +20,8 @@ module Oracle
           validator = AskValidator.new(command)
         when "rename".freeze
           validator = RenameValidator.new(command)
+        when "renumber".freeze
+          validator = RenumberValidator.new(command)
         else
           return {valid: false, error_message: "Unknown command"}
         end
@@ -92,6 +94,17 @@ module Oracle
       def validate
         if command.instructions.size != 4
           return {valid: false, error_message: "To rename a list: !oracle rename 'old name' to 'new name'"}
+        end
+
+        return {valid: true, error_message: ""}
+      end
+    end
+
+    class RenumberValidator < BaseValidator
+
+      def validate
+        if command.instructions.size != 1
+          return {valid: false, error_message: "To renumber lists: !oracle renumber"}
         end
 
         return {valid: true, error_message: ""}
