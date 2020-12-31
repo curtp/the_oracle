@@ -40,7 +40,7 @@ module Oracle
           result = processor.process
 
           if !result[:success]
-            command.event << "Error: #{result[:error_message]}"
+            command.event << "Sorry! #{result[:error_message]}"
             command.event << ""
             command.event << "See !oracle help for usage information"
           end

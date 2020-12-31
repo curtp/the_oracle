@@ -40,6 +40,10 @@ module Oracle
         self.command = command
       end
 
+      def is_owner?
+        command.event.server.owner.id.eql?(command.event.user.id)
+      end
+
       def validate
         return {valid: true, error_message: ""}
       end
@@ -48,6 +52,11 @@ module Oracle
     class AddValidator < BaseValidator
 
       def validate
+        if !is_owner?
+          return {valid: false,
+            error_message: "Only server owners can add answers."}
+        end
+
         if command.instructions.size != 4
           return {valid: false, error_message: "To add an answer to the list: add 'new entry' to 'list name'"}
         end
@@ -59,6 +68,11 @@ module Oracle
     class RemoveValidator < BaseValidator
 
       def validate
+        if !is_owner?
+          return {valid: false,
+            error_message: "Only server owners can remove answers or lists."}
+        end
+
         if command.instructions.size != 4 && command.instructions.size != 2
           return {valid: false,
             error_message: "To remove an answer from the list: remove 'old entry' from 'list name'"}
@@ -92,6 +106,11 @@ module Oracle
     class RenameValidator < BaseValidator
 
       def validate
+        if !is_owner?
+          return {valid: false,
+            error_message: "Only server owners can rename lists."}
+        end
+
         if command.instructions.size != 4
           return {valid: false, error_message: "To rename a list: !oracle rename 'old name' to 'new name'"}
         end
@@ -103,6 +122,11 @@ module Oracle
     class RenumberValidator < BaseValidator
 
       def validate
+        if !is_owner?
+          return {valid: false,
+            error_message: "Only server owners can renumber lists."}
+        end
+
         if command.instructions.size != 1
           return {valid: false, error_message: "To renumber lists: !oracle renumber"}
         end
