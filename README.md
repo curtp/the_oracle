@@ -4,9 +4,9 @@ Discord bot providing answers to questions
 This is a work in progress and not ready for general use. Message me if you'd like to try it out. There is a very limited number of servers at this time.
 
 ## Hot It Works
-The oracle works off of lists of answers. It is up to the server owners to
+The oracle works off of lists of entries. It is up to the server owners to
 create and manage the lists. Each server can have multiple lists. Once the 
-lists are created, then the oracle can be asked for answers from those lists.
+lists are created, then the oracle can be asked questions from those lists.
 
 When the bot is first added to the server, the following 3 lists are added.
 
@@ -20,6 +20,17 @@ When the bot is first added to the server, the following 3 lists are added.
 | Yes, and benefit      | Yes                   | Yes, and benefit      |
 
 You can change these lists to suit your needs, or remove them from the oracle (see below).
+
+## Some things to know
+1) Only server owners can add, edit, or remove lists.
+2) Anyone can view lists or ask the oracle questions.
+3) List names can only be 50 characters long. Anything longer than 50 characters is automatically shortened to 50.
+4) Entries can only be 50 characters long. Anything longer than 50 characters is automatically shortened to 50.
+5) Currently, there isn't a limit to the number of lists allowed on a server. Add too many, and it will be difficult to use.
+6) Duplicate entries can be added to a list, however, entries are removed by name. In the examples above, removing No from a list will remove ALL No entries.
+7) Think beyond question/answer interactions. This works great for any random table.
+8) Name lists so they are grouped together. Lists are always displayed in alphabetical order.
+9) After adding the list, use the assigned number to intereact with it and save typing. This makes it much easier to use on a phone.
 
 ## Talking to the Oracle
 There are two ways to talk to the oracle. Either of these will work
@@ -54,7 +65,7 @@ Here are the two commands to ask questions of the list and sample answers:
 !oracle ask "even odds" "Will it snow today?"
 @user asked: "Will it snow today?". The answer is: "Yes".
 
-!o ask 1
+!o ask 1 "Will it snow today?"
 ```
 
 ## List Maintenance
@@ -63,6 +74,8 @@ To display all lists for the server:
 !oracle display
 
 !oracle list
+
+!o list
 ```
 
 To display all entries in a list:
