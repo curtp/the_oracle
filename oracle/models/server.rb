@@ -1,4 +1,5 @@
 require_relative './list'
+require_relative '../database/seeder'
 
 module Oracle
   module Models
@@ -26,6 +27,9 @@ module Oracle
           OracleLogger.log.info("Server: bot joined a new server, creating server record")
           server = Server.create(server_id: event.server.id, server_name: event.server.name,
             added_by_user: event.server.owner.distinct)
+            OracleLogger.log.debug {"Server: Seeding lists for the server."}
+            seeder = Oracle::Database::Seeder.new
+            seeder.seed(event.server.id)
         end
         OracleLogger.log.debug {"Server: server: #{server.inspect}"}
       end

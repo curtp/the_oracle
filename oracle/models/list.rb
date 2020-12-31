@@ -32,7 +32,8 @@ module Oracle
       private
 
       def next_number
-        List.where(server_id: self.server_id).maximum(:number) + 1
+        max_number = List.where(server_id: self.server_id).maximum(:number) || 0
+        max_number + 1
       end
 
       def before_save_processing
