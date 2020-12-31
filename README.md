@@ -8,7 +8,7 @@ The oracle works off of lists of answers. It is up to the server owners to
 create and manage the lists. Each server can have multiple lists. Once the 
 lists are created, then the oracle can be asked for answers from those lists.
 
-When the bot is first added to the server, the following 3 are added.
+When the bot is first added to the server, the following 3 lists are added.
 
 | Odds - Even           | Odds - Unlikely       | Odds - Likely         |
 | --------------------- | --------------------- | --------------------- |
