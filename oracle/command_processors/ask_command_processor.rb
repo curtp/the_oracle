@@ -40,12 +40,15 @@ module Oracle
       private
 
       def ask_with_question(list)
-        answer = list.entries.sample
-        command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{answer}'"
+        command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{select_answer(list)}'"
       end
 
       def ask_without_question(list)
-        command.event << "#{command.event.user.mention}, the answer is: '#{list.entries.sample}'"
+        command.event << "#{command.event.user.mention}, the answer is: '#{select_answer(list)}'"
+      end
+
+      def select_answer(list)
+        list.entries.shuffle.sample
       end
 
     end
