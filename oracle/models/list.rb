@@ -33,6 +33,11 @@ module Oracle
 
       def before_save_processing
         self.name = self.name.slice(0...LIST_NAME_MAX_LENGTH)
+        # Count the number of lists for the server
+        if new_record?
+          count = List.where(server_id: self.server_id).count + 1
+          self.number = count
+        end
       end
 
     end

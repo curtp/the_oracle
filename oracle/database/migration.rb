@@ -5,6 +5,7 @@ module Oracle
         if !table_exists?(:lists)
           create_table :lists do |table|
             table.string :name
+            table.integer :number
             table.string :server_id
             table.text :entries
             table.integer :lock_version

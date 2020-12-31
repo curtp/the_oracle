@@ -58,11 +58,13 @@ module Oracle
       end
 
       def print_server_lists(lists)
+        command.event << "```"
         command.event << "Oracle Lists"
         command.event << "====================="
         lists.each do |list|
-          command.event << list.name
+          command.event << "#{list.number} - #{list.name}"
         end
+        command.event << "```"
       end
     end
   end

@@ -5,6 +5,13 @@ module Oracle
     class Server < ActiveRecord::Base
       has_many :lists, primary_key: :server_id
 
+      # Renumbers all lists for the server
+      def renumber_lists
+        lists.order(:name).each_with_index do |list, ndx|
+          list.update(number: ndx+1)
+        end
+      end
+
       def self.bot_joined_server(event)
         OracleLogger.log.info("Server: bot just joined server: '#{event.server.name}' (ID: #{event.server.id}), owned by '#{event.server.owner.distinct}' the server count is now #{event.bot.servers.count}")
         # Look for an existing server with the ID of the server in the event.
