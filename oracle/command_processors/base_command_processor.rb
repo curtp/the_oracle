@@ -13,7 +13,7 @@ module Oracle
         command.event << "```"
         command.event << "List: #{list.number} :: #{list.name}"
         command.event << "====================="
-        list.entries.each do |entry|
+        list.entries.sort.each do |entry|
           command.event << entry
         end
         command.event << "```"
