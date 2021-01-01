@@ -5,7 +5,7 @@ module Oracle
     class List < ActiveRecord::Base
 
       LIST_NAME_MAX_LENGTH = 50
-      ENTRY_MAX_LENGTH = 50
+      ENTRY_MAX_LENGTH = 100
 
       serialize :entries, Array
 
