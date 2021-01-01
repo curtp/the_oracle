@@ -10,9 +10,11 @@ module Oracle
       end
 
       def print_list(list)
+        header = "#{list.number} :: #{list.name}"
+        length = header.size
         command.event << "```"
         command.event << "#{list.number} :: #{list.name}"
-        command.event << "====================="
+        command.event << "=" * length
         list.entries.sort.each do |entry|
           command.event << entry
         end
