@@ -5,7 +5,7 @@ This is a work in progress and not ready for general use. Message me if you'd li
 
 ## How It Works
 The oracle works off of lists of entries. It is up to the server owners to
-create and manage the lists. Each server can have multiple lists. Once the 
+create and manage the lists. Each server can have multiple lists. Once the
 lists are created, then the oracle can be asked questions from those lists.
 
 When the bot is first added to the server, the following 3 lists are added.
@@ -25,7 +25,7 @@ You can change these lists to suit your needs, or remove them from the oracle (s
 1) Only server owners can add, edit, or remove lists.
 2) Anyone can view lists or ask the oracle questions.
 3) List names can only be 50 characters long. Anything longer than 50 characters is automatically shortened to 50.
-4) Entries can only be 50 characters long. Anything longer than 50 characters is automatically shortened to 50.
+4) Entries can be up to 100 characters long. Anything longer than 100 characters is automatically shortened to 100.
 5) Currently, there isn't a limit to the number of lists allowed on a server. Add too many, and it will be difficult to use.
 6) Duplicate entries can be added to a list, however, entries are removed by name. In the examples above, removing No from a list will remove ALL No entries.
 7) Think beyond question/answer interactions. This works great for any random table.

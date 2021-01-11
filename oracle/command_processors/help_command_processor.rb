@@ -31,12 +31,13 @@ module Oracle
         event << "**-- View Lists --**"
         event << "!oracle display '[list name]' - Displays all answers in a list: !oracle display 'very unlikely'"
         event << "!oracle display - Displays all lists the Oracle knows about"
+        event << "!oralce list"
         event << " "
         event << "**-- Ask The Oracle Questions --**"
         event << "!oracle ask '[list name]' - Asks the oracle a question from the list: !oracle ask 'very unlikely'"
         event << "!oracle ask '[list name]' '[question]' - Asks the oracle a question from the list: !oracle ask 'very unlikely' 'did the car crash?'"
         event << " "
-        event << "!oracle help - Display this help message"
+        event << "!oracle help - Display this help message <https://github.com/curtp/the_oracle>"
       end
 
     end
