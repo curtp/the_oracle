@@ -15,7 +15,7 @@ module Oracle
         # Create the Likely list
         list_hash = {server_id: server_id, name: "Odds - Likely",
           entries: ["No",
-            "No - but benefit", "Yes, but complication", "Yes,", "Yes", "Yes, and benefit"]
+            "No, but benefit", "Yes, but complication", "Yes", "Yes", "Yes, and benefit"]
         }
         add_list(list_hash)
 
