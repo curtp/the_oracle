@@ -40,21 +40,21 @@ module Oracle
       private
 
       def ask_with_question(list)
-        command.event.channel.send_embed do |embed|
-          embed.title = select_title
-          embed.colour = rand(0..0xfffff)
-          embed.description = "**#{command.event.user.mention} asked:** '#{command.question}'.\r\n**The answer is:** '#{select_answer(list)}'"
-        end
-#        command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{select_answer(list)}'"
+#        command.event.channel.send_embed do |embed|
+#          embed.title = select_title
+#          embed.colour = rand(0..0xfffff)
+#          embed.description = "**#{command.event.user.mention} asked:** '#{command.question}'.\r\n**The answer is:** '#{select_answer(list)}'"
+#        end
+        command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{select_answer(list)}'"
       end
 
       def ask_without_question(list)
-        command.event.channel.send_embed do |embed|
-          embed.title = select_title
-          embed.colour = rand(0..0xfffff)
-          embed.description = "**#{command.event.user.mention}, the answer is:** '#{select_answer(list)}'"
-        end
-#        command.event << "#{command.event.user.mention}, the answer is: '#{select_answer(list)}'"
+#        command.event.channel.send_embed do |embed|
+#          embed.title = select_title
+#          embed.colour = rand(0..0xfffff)
+#          embed.description = "**#{command.event.user.mention}, the answer is:** '#{select_answer(list)}'"
+#        end
+        command.event << "#{command.event.user.mention}, the answer is: '#{select_answer(list)}'"
       end
 
       def select_answer(list)
