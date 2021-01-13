@@ -68,7 +68,7 @@ module Oracle
       end
 
       def select_title
-        ["After Much Thought...", "After Careful Consideration..."].sample
+        ["After Much Thought...", "After Careful Consideration...", "After Consulting The Cosmos..."].sample
       end
 
       def has_embed_permission?
