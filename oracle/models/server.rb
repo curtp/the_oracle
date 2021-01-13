@@ -8,7 +8,7 @@ module Oracle
 
       # Renumbers all lists for the server
       def renumber_lists
-        lists.order(:name).each_with_index do |list, ndx|
+        lists.order("upper(name) asc").each_with_index do |list, ndx|
           list.update(number: ndx+1)
         end
       end
