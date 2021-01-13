@@ -40,21 +40,27 @@ module Oracle
       private
 
       def ask_with_question(list)
-#        command.event.channel.send_embed do |embed|
-#          embed.title = select_title
-#          embed.colour = rand(0..0xfffff)
-#          embed.description = "**#{command.event.user.mention} asked:** '#{command.question}'.\r\n**The answer is:** '#{select_answer(list)}'"
-#        end
-        command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{select_answer(list)}'"
+        if has_embed_permission?
+          command.event.channel.send_embed do |embed|
+            embed.title = select_title
+            embed.colour = rand(0..0xfffff)
+            embed.description = "**#{command.event.user.mention} asked:** '#{command.question}'.\r\n**The answer is:** '#{select_answer(list)}'"
+          end
+        else
+          command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{select_answer(list)}'"
+        end
       end
 
       def ask_without_question(list)
-#        command.event.channel.send_embed do |embed|
-#          embed.title = select_title
-#          embed.colour = rand(0..0xfffff)
-#          embed.description = "**#{command.event.user.mention}, the answer is:** '#{select_answer(list)}'"
-#        end
-        command.event << "#{command.event.user.mention}, the answer is: '#{select_answer(list)}'"
+        if has_embed_permission?
+          command.event.channel.send_embed do |embed|
+            embed.title = select_title
+            embed.colour = rand(0..0xfffff)
+            embed.description = "**#{command.event.user.mention}, the answer is:** '#{select_answer(list)}'"
+          end
+        else
+          command.event << "#{command.event.user.mention}, the answer is: '#{select_answer(list)}'"
+        end
       end
 
       def select_answer(list)
@@ -65,6 +71,10 @@ module Oracle
         ["After Much Thought...", "After Careful Consideration..."].sample
       end
 
+      def has_embed_permission?
+        bot_profile = command.event.bot.profile.on(command.event.server)
+        return bot_profile.permission?(:embed_links, command.event.channel)
+      end
     end
   end
 end
