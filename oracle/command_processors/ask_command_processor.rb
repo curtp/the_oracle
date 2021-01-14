@@ -29,6 +29,8 @@ module Oracle
             ask_without_question(list)
           end
 
+          remove_question
+
         else
           result[:success] = false
           result[:error_message] = validation_result[:error_message]
@@ -63,6 +65,11 @@ module Oracle
         end
       end
 
+      def remove_question
+        return if !has_manage_messages_permission?
+        command.event.message.delete
+      end
+
       def select_answer(list)
         list.entries.shuffle.sample
       end
@@ -72,8 +79,15 @@ module Oracle
       end
 
       def has_embed_permission?
+        return get_bot_profile.permission?(:embed_links, command.event.channel)
+      end
+
+      def has_manage_messages_permission?
+        return get_bot_profile.permission?(:manage_messages, command.event.channel)
+      end
+
+      def get_bot_profile
         bot_profile = command.event.bot.profile.on(command.event.server)
-        return bot_profile.permission?(:embed_links, command.event.channel)
       end
     end
   end
