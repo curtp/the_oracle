@@ -3,6 +3,13 @@ Discord bot providing answers to questions
 
 This is a work in progress and not ready for general use. Message me if you'd like to try it out. There is a very limited number of servers allowed at this time.
 
+### Required Permissions
+**Send Messages** - Allows the bot to send messages to the channel.
+
+### Optional Permissions
+**Embed Links** - Allows the bot to reply to ask commands with a nicer formatted answer.\
+**Manage Messages** - Allows the bot to remove the original ask question when replying with an answer, reducing clutter.
+
 ## How It Works
 The oracle works off of lists of entries. It is up to the server owners to
 create and manage the lists. Each server can have multiple lists. Once the
