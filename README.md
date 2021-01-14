@@ -127,6 +127,5 @@ To renumber the lists:
 5. Add the following to the .env file:
 ```
 BOT_TOKEN="[Paste Discord Bot Token Here]"
-LOG_FILE=/the_oracle/logs/the_oracle.log
 ```
 6. Run docker-compose up
