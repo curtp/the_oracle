@@ -61,8 +61,9 @@ module Oracle
         command.event << "```"
         command.event << "Oracle Lists"
         command.event << "====================="
+        pad = lists.size.to_s.length
         lists.each do |list|
-          command.event << "#{list.number} :: #{list.name}"
+          command.event << "#{list.number.to_s.rjust(pad)} :: #{list.name}"
         end
         command.event << "```"
       end
