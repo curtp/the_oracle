@@ -56,7 +56,7 @@ module Oracle
 
       def server_lists
         begin
-          Oracle::Models::List.where(server_id: command.event.server.id).order("upper(name) asc").all
+          Oracle::Models::List.where(server_id: command.event.server.id).order("upper(name) asc")
         rescue Exception => e
           OracleLogger.log.error("BaseCommandProcessor: Issue loading sever lists: #{e}")
           OracleLogger.log.error(e.backtrace.join("\n"))
