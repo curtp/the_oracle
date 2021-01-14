@@ -3,10 +3,10 @@ Discord bot providing answers to questions
 
 This is a work in progress and not ready for general use. Message me if you'd like to try it out. There is a very limited number of servers allowed at this time.
 
-# Required Permissions
+### Required Permissions
 Send Messages - Allows the bot to send messages to the channel.
 
-# Optional Permissions
+### Optional Permissions
 Embed Links - Allows the bot to reply to ask commands with a nicer formatted answer.
 Manage Messages - Allows the bot to remove the original ask question when replying with an answer, reducing clutter.
 
