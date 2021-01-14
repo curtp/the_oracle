@@ -1,0 +1,7 @@
+answer_title:
+  - "After Much Thought..."
+  - "After Careful Consideration..."
+  - "After Consulting The Cosmos..."
+  - "My Sources Say..."
+  - "The Tea Leaves Say..."
+log_file: "/the_oracle/logs/the_oracle.log"

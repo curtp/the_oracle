@@ -1,14 +1,16 @@
 require 'discordrb'
 require 'dotenv/load'
 require "active_record"
+require "yaml"
 require_relative './oracle/lib/oracle_logger'
 require_relative './oracle/command_processors/oracle_command_processor'
 require_relative "./oracle/models/command_factory"
 require_relative "./oracle/models/server"
 require_relative "./oracle/database/migration"
+require_relative "./oracle/lib/config"
 
 OracleLogger.log_level = Logger::DEBUG
-OracleLogger.log_destination = ENV["LOG_FILE"]
+OracleLogger.log_destination = Oracle.config[:log_file]
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'data/server_lists.db')
 Oracle::Database::Migration.migrate(:up)
