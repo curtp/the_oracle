@@ -5,3 +5,4 @@ answer_title:
   - "My Sources Say..."
   - "The Tea Leaves Say..."
 log_file: "/the_oracle/logs/the_oracle.log"
+database_file: "/the_oracle/data/server_lists.db"

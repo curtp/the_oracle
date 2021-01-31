@@ -10,20 +10,22 @@ require_relative "./oracle/models/server"
 require_relative "./oracle/database/migration"
 require_relative "./oracle/lib/config"
 
+# Setup the logger
 OracleLogger.log_level = Logger::DEBUG
 OracleLogger.log_destination = Oracle.config[:log_file]
 
-ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'data/server_lists.db')
+# Connect to the database and run any pending migrations
+ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: Oracle.config[:database_file])
 Oracle::Database::Migration.migrate(:up)
 
-# Move the token into ENV files
+# Establish the bot and connect
 bot = Discordrb::Commands::CommandBot.new(token: ENV["BOT_TOKEN"], prefix: "!")
-#@nicks = {}
 # Create the command for the bot and process the events
 bot.command(:oracle, aliases: [:o], description: "Master command for communicating with the Oracle") do |event|
   Oracle::CommandProcessors::OracleCommandProcessor.execute(Oracle::Models::CommandFactory.create_command_for_event(event))
 end
 
+#@nicks = {}
 #bot.command(:nick, description: "Register a nickname for a channel") do |event|
 #  instructions = event.message.content.tokenize.drop(1)
 #

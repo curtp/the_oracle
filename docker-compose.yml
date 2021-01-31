@@ -4,8 +4,6 @@ services:
   discord-bot:
     build: .
     container_name: discord_bot
-    ports:
-      - "8080:8080"
     restart: always
     command: "bundle exec ruby oracle.rb"
     volumes:
