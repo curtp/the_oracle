@@ -71,7 +71,8 @@ module Oracle
       end
 
       def select_answer(list)
-        list.entries.shuffle.sample
+        entry = list.select_entry
+        entry.present? ? entry[:value] : nil
       end
 
       def select_title

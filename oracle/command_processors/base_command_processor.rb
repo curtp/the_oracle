@@ -10,13 +10,14 @@ module Oracle
       end
 
       def print_list(list)
-        header = "#{list.number} :: #{list.name}"
+        OracleLogger.log.debug {"Printing list: #{list.inspect}"}
+        header = "#{list.number} :: #{list.name} (#{list.entries.size})"
         length = header.size
         command.event << "```"
-        command.event << "#{list.number} :: #{list.name}"
+        command.event << header
         command.event << "=" * length
-        list.entries.sort.each do |entry|
-          command.event << entry
+        list.entries.sort_by {|entry| entry[:value].downcase}.each do |entry|
+          command.event << "(#{((entry[:weight]/list.total_weight)*100.0).round(1)}%)".rjust(8).concat(" #{entry[:value]}")
         end
         command.event << "```"
       end

@@ -10,6 +10,7 @@ module Oracle
       serialize :entries, Array
 
       before_save :before_save_processing
+      after_initialize :convert_entries_to_hash
 
       def add_entry(entry)
         if entries.nil?
@@ -29,6 +30,24 @@ module Oracle
         Oracle::Models::List.where(server_id: server_id).destroy_all
       end
 
+      def total_weight
+        @total_weight ||= entries.inject(0){|sum,x| sum + x[:weight] }
+      end
+
+      # Selects a random entry from the list of entries
+      def select_entry
+        exploded_entries = []
+        OracleLogger.log.debug("looping over entries: #{entries.inspect}")
+        entries.each do |entry|
+          OracleLogger.log.debug("entry: #{entry}")
+          (1..entry[:weight]).each do
+            exploded_entries.push entry
+          end
+        end
+        OracleLogger.log.debug("exploded_entries: #{exploded_entries.inspect}")
+        exploded_entries.shuffle.sample
+      end
+
       private
 
       def next_number
@@ -42,6 +61,16 @@ module Oracle
         if new_record?
           self.number = next_number
         end
+      end
+
+      # When loading the list, convert all entries to a hash if they haven't
+      # been converted already
+      def convert_entries_to_hash
+        return if entries.empty?
+        return if entries.first.is_a?(Hash)
+        # Default the weight to 1.0. Users can add entries with a different
+        # weight
+        entries.map! {|entry| {value: entry, weight: rand(1..5).to_f}}
       end
 
     end
