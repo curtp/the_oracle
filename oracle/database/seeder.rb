@@ -1,5 +1,3 @@
-require_relative "../models/list"
-
 module Oracle
   module Database
     class Seeder

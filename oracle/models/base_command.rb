@@ -22,6 +22,14 @@ module Oracle
       def help_command?
         return false
       end
+
+      def list_required?
+        return false
+      end
+
+      def display_list?
+        return false
+      end
     end
   end
 end

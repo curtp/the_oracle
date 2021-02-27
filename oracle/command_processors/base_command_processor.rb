@@ -1,13 +1,50 @@
-require_relative "../validators/command_validator"
 module Oracle
   module CommandProcessors
     class BaseCommandProcessor
 
       attr_accessor :command
+      attr_accessor :list
 
       def initialize(command)
         self.command = command
       end
+
+      def process
+        result = {success: true, error_message: nil}
+
+        # Make sure the command is valid before continuing
+        validation_result = validate_command
+        if !validation_result[:valid]
+          result[:success] = false
+          result[:error_message] = validation_result[:error_message]
+          OracleLogger.log.debug {"BaseCommandProcessor.process: validation failed returning result: #{result}"}
+          return result
+        end
+
+        # If the command requires the list object, then look for it
+        if command.list_required?
+          # Retrieve the list. 
+          self.list = find_list
+          if !list.present?
+            result[:success] = false
+            result[:error_message] = "No list found."
+            OracleLogger.log.debug {"BaseCommandProcessor.process: list not found: #{result}"}
+            return result
+          end
+        end
+
+        # Execute the command specific logic in the child class
+        child_process(result)
+
+        # If everything worked and the command should display the list, display it
+        if result[:success] && command.display_list?
+          print_list(list)
+        end
+
+        return result
+      end
+
+      protected
 
       def print_list(list)
         header = "#{list.number} :: #{list.name}"
@@ -20,8 +57,6 @@ module Oracle
         end
         command.event << "```"
       end
-
-      protected
 
       def validate_command
         Oracle::Validators::CommandValidator.validate(command)

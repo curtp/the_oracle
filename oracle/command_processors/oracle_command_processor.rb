@@ -1,11 +1,4 @@
-require_relative "../validators/command_validator"
-require_relative "./add_command_processor"
-require_relative "./remove_command_processor"
-require_relative "./display_command_processor"
-require_relative "./ask_command_processor"
-require_relative "./help_command_processor"
-require_relative "./rename_command_processor"
-require_relative "./renumber_command_processor"
+# frozen_string_literal: true
 
 module Oracle
   module CommandProcessors
@@ -20,17 +13,17 @@ module Oracle
             processor = HelpCommandProcessor.new(command)
           else
             case command.base_instruction
-            when "add".freeze
+            when "add"
               processor = AddCommandProcessor.new(command)
-            when "remove".freeze
+            when "remove"
               processor = RemoveCommandProcessor.new(command)
-            when "display".freeze, "list".freeze
+            when "display", "list"
               processor = DisplayCommandProcessor.new(command)
-            when "ask".freeze
+            when "ask"
               processor = AskCommandProcessor.new(command)
-            when "rename".freeze
+            when "rename"
               processor = RenameCommandProcessor.new(command)
-            when "renumber".freeze
+            when "renumber"
               processor = RenumberCommandProcessor.new(command)
             else
               processor = HelpCommandProcessor.new(command)

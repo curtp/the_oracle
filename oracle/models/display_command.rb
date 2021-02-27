@@ -1,4 +1,3 @@
-require_relative "./base_command"
 module Oracle
   module Models
     class DisplayCommand < BaseCommand

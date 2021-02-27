@@ -1,10 +1,4 @@
-require_relative "./add_command"
-require_relative "./remove_command"
-require_relative "./display_command"
-require_relative "./ask_command"
-require_relative "./help_command"
-require_relative "./rename_command"
-require_relative "./renumber_command"
+# frozen_string_literal: true
 module Oracle
   module Models
     class CommandFactory
@@ -13,17 +7,17 @@ module Oracle
 
         OracleLogger.log.debug {"CommandFactory: Creating command object for command: #{event.message.content.downcase.strip.split(" ")[1]}"}
         case event.message.content.downcase.strip.split(" ")[1]
-        when "add".freeze
+        when "add"
           return AddCommand.new(event)
-        when "remove".freeze
+        when "remove"
           return RemoveCommand.new(event)
-        when "display".freeze, "list".freeze
+        when "display", "list"
           return DisplayCommand.new(event)
-        when "ask".freeze
+        when "ask"
           return AskCommand.new(event)
-        when "rename".freeze
+        when "rename"
           return RenameCommand.new(event)
-        when "renumber".freeze
+        when "renumber"
           return RenumberCommand.new(event)
         else
           return HelpCommand.new(event)

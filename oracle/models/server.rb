@@ -1,5 +1,4 @@
-require_relative './list'
-require_relative '../database/seeder'
+# frozen_string_literal: true
 
 module Oracle
   module Models

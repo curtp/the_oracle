@@ -1,5 +1,3 @@
-require_relative "./base_model"
-
 module Oracle
   module Models
     class List < ActiveRecord::Base

@@ -1,8 +1,15 @@
+# frozen_string_literal: true
 module Oracle
   module Validators
     class CommandValidator
 
       def self.validate(command)
+
+        # Help command is always valid
+        if command.help_command?
+          return {valid: true, error_message: nil}
+        end
+
         OracleLogger.log.debug {"CommandValidator: instruction size: #{command.instructions.size}"}
         if command.instructions.size < 1
           return {valid: false, error_message: "Unknown command"}
@@ -10,17 +17,17 @@ module Oracle
 
         OracleLogger.log.debug {"CommandValidator: creating validator for command: #{command.base_instruction.downcase.strip}"}
         case command.base_instruction.downcase.strip
-        when "add".freeze
+        when "add"
           validator = AddValidator.new(command)
-        when "remove".freeze
+        when "remove"
           validator = RemoveValidator.new(command)
-        when "display".freeze, "list".freeze
+        when "display", "list"
           validator = DisplayValidator.new(command)
-        when "ask".freeze
+        when "ask"
           validator = AskValidator.new(command)
-        when "rename".freeze
+        when "rename"
           validator = RenameValidator.new(command)
-        when "renumber".freeze
+        when "renumber"
           validator = RenumberValidator.new(command)
         else
           return {valid: false, error_message: "Unknown command"}

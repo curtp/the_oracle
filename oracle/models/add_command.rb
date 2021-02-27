@@ -1,7 +1,9 @@
-require_relative "./base_list_management_command"
 module Oracle
   module Models
     class AddCommand < BaseListManagementCommand
+      def display_list?
+        return true
+      end
     end
   end
 end

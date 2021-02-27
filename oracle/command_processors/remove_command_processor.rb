@@ -1,37 +1,17 @@
-require_relative "./base_command_processor"
-require_relative "../models/list"
-
 module Oracle
   module CommandProcessors
     class RemoveCommandProcessor < BaseCommandProcessor
 
-      def process
-        result = {success: true, error_message: ""}
-        validation_result = validate_command
-        OracleLogger.log.debug {"RemoveCommandProcessor.process: validation result: #{validation_result}"}
-        if validation_result[:valid]
-          list = find_list
-          if !list.present?
-            result[:success] = false
-            result[:error_message] = "List not found"
-            return result
-          end
+      def child_process(result)
 
-          if command.instructions.size == 2
-            remove_entire_list(list)
-            command.event << "Removed list #{list.name} from the Oracle"
-          elsif command.instructions.size == 4
-            remove_entry_from_list(list)
-            command.event << "Removed #{command.entry} from the list #{command.list_name}"
-            print_list(list)
-          end
-
-        else
-          result[:success] = false
-          result[:error_message] = validation_result[:error_message]
+        if command.instructions.size == 2
+          remove_entire_list(list)
+          command.event << "Removed list #{list.name} from the Oracle"
+        elsif command.instructions.size == 4
+          remove_entry_from_list(list)
+          command.event << "Removed #{command.entry} from the list #{command.list_name}"
+          print_list(list)
         end
-        OracleLogger.log.debug {"RemoveCommandProcessor.process: returning result: #{result}"}
-        return result
       end
 
       private

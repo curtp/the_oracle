@@ -1,16 +1,10 @@
-require_relative "./base_command_processor"
-require_relative "../models/list"
-
 module Oracle
   module CommandProcessors
     class HelpCommandProcessor < BaseCommandProcessor
 
-      def process
+      def child_process(result)
         HelpCommandProcessor.build_help_message(command.event)
-        result = {success: true, error_message: ""}
-        return result
       end
-
 
       def self.build_help_message(event)
         event << "**Welcome to The Oracle**"

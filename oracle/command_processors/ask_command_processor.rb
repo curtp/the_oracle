@@ -1,40 +1,23 @@
-require_relative "./base_command_processor"
-require_relative "../models/list"
-
 module Oracle
   module CommandProcessors
     class AskCommandProcessor < BaseCommandProcessor
 
-      def process
-        result = {success: true, error_message: ""}
-        validation_result = validate_command
-        OracleLogger.log.debug {"AskCommandProcessor.process: validation result: #{validation_result}"}
-        if validation_result[:valid]
-          list = find_list
-          if !list.present?
-            result[:success] = false
-            result[:error_message] = "List not found"
-            return result
-          end
+      def child_process(result)
 
-          if list.entries.empty?
-            result[:success] = false
-            result[:error_message] = "There are no answers in the list."
-            return result
-          end
-
-          if command.question.present?
-            ask_with_question(list)
-          else
-            ask_without_question(list)
-          end
-
-          remove_question
-
-        else
+        if list.entries.empty?
           result[:success] = false
-          result[:error_message] = validation_result[:error_message]
+          result[:error_message] = "There are no answers in the list."
+          return result
         end
+
+        if command.question.present?
+          ask_with_question(list)
+        else
+          ask_without_question(list)
+        end
+
+        remove_question
+
         OracleLogger.log.debug {"AskCommandProcessor.process: returning result: #{result}"}
         return result
       end
