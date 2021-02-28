@@ -57,15 +57,27 @@ module Oracle
       protected
 
       def print_list(list)
-        header = "#{list.number} :: #{list.name}"
-        length = header.size
-        command.event << "```"
-        command.event << "#{list.number} :: #{list.name}"
-        command.event << "=" * length
-        list.entries.sort.each do |entry|
-          command.event << entry
+        if has_embed_permission?
+          command.event.channel.send_embed do |embed|
+            embed.title = "#{list.number} :: #{list.name}"
+            embed.colour = rand(0..0xfffff)
+            msg = ""
+            list.entries.sort.each do |entry|
+              msg = msg << "#{entry}\n"
+            end
+            embed.description = msg
+          end
+        else
+          header = "#{list.number} :: #{list.name}"
+          length = header.size
+          command.event << "```"
+          command.event << "#{list.number} :: #{list.name}"
+          command.event << "=" * length
+          list.entries.sort.each do |entry|
+            command.event << entry
+          end
+          command.event << "```"
         end
-        command.event << "```"
       end
 
       def validate_command
@@ -106,6 +118,18 @@ module Oracle
           OracleLogger.log.error("BaseCommandProcessor: Issue loading sever lists: #{e}")
           OracleLogger.log.error(e.backtrace.join("\n"))
         end
+      end
+
+      def has_embed_permission?
+        return get_bot_profile.permission?(:embed_links, command.event.channel)
+      end
+
+      def has_manage_messages_permission?
+        return get_bot_profile.permission?(:manage_messages, command.event.channel)
+      end
+
+      def get_bot_profile
+        bot_profile = command.event.bot.profile.on(command.event.server)
       end
 
       private

@@ -61,17 +61,6 @@ module Oracle
         Oracle.config[:answer_title].sample
       end
 
-      def has_embed_permission?
-        return get_bot_profile.permission?(:embed_links, command.event.channel)
-      end
-
-      def has_manage_messages_permission?
-        return get_bot_profile.permission?(:manage_messages, command.event.channel)
-      end
-
-      def get_bot_profile
-        bot_profile = command.event.bot.profile.on(command.event.server)
-      end
     end
   end
 end
