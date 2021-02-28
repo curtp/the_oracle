@@ -25,6 +25,8 @@ module Oracle
               processor = RenameCommandProcessor.new(command)
             when "renumber"
               processor = RenumberCommandProcessor.new(command)
+            when "stats"
+              processor = StatsCommandProcessor.new(command)
             else
               processor = HelpCommandProcessor.new(command)
             end

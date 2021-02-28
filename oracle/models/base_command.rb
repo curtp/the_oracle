@@ -30,6 +30,12 @@ module Oracle
       def display_list?
         return false
       end
+
+      # Returns true if the user executing the command is the bot owner
+      def bot_owner?
+        return self.event.user.id.to_s.eql?(ENV["BOT_OWNER_ID"].to_s)
+      end
+      
     end
   end
 end

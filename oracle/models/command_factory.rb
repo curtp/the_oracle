@@ -19,6 +19,8 @@ module Oracle
           return RenameCommand.new(event)
         when "renumber"
           return RenumberCommand.new(event)
+        when "stats"
+          return StatsCommand.new(event)
         else
           return HelpCommand.new(event)
         end

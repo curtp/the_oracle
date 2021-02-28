@@ -29,6 +29,8 @@ module Oracle
           validator = RenameValidator.new(command)
         when "renumber"
           validator = RenumberValidator.new(command)
+        when "stats"
+          validator = StatsValidator.new(command)
         else
           return {valid: false, error_message: "Unknown command"}
         end
@@ -138,6 +140,18 @@ module Oracle
           return {valid: false, error_message: "To renumber lists: !oracle renumber"}
         end
 
+        return {valid: true, error_message: ""}
+      end
+    end
+
+    class StatsValidator < BaseValidator
+
+      def validate
+        OracleLogger.log.debug("instructions.size: #{command.instructions.size}")
+
+        if !command.bot_owner?
+          return {valid: false, error_message: "Command not available"}
+        end
         return {valid: true, error_message: ""}
       end
     end
