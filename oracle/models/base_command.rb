@@ -27,6 +27,10 @@ module Oracle
         return false
       end
 
+      def server_required?
+        return false
+      end
+
       def display_list?
         return false
       end

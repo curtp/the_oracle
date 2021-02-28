@@ -3,7 +3,7 @@ module Oracle
     class BaseCommandProcessor
 
       attr_accessor :command
-      attr_accessor :list
+      attr_accessor :list, :server
 
       def initialize(command)
         self.command = command
@@ -29,6 +29,16 @@ module Oracle
             result[:success] = false
             result[:error_message] = "No list found."
             OracleLogger.log.debug {"BaseCommandProcessor.process: list not found: #{result}"}
+            return result
+          end
+        end
+
+        if command.server_required?
+          self.server = Oracle::Models::Server.where(server_id: command.event.server.id).first
+          if !server.present?
+            result[:success] = false
+            result[:error_message] = "Server not found."
+            OracleLogger.log.debug {"BaseCommandProcessor.process: server not found: #{result}"}
             return result
           end
         end
