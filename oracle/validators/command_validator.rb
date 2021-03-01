@@ -66,8 +66,8 @@ module Oracle
             error_message: "Only server owners can add answers."}
         end
 
-        if command.instructions.size != 4
-          return {valid: false, error_message: "To add an answer to the list: add 'new entry' to 'list name'"}
+        if command.instructions.size != 5
+          return {valid: false, error_message: "To add an answer to the list: add 'new entry' [weight] to 'list name'"}
         end
 
         return {valid: true, error_message: ""}

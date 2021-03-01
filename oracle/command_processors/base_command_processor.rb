@@ -62,8 +62,9 @@ module Oracle
             embed.title = "#{list.number} :: #{list.name}"
             embed.colour = rand(0..0xfffff)
             msg = ""
-            list.entries.sort.each do |entry|
-              msg = msg << "#{entry}\n"
+            pad = list.entries.size.to_s.length
+            list.entries.each_with_index do |entry, ndx|
+              msg = msg << "#{(ndx+1).to_s.rjust(pad, "0")}︲[#{entry[:weight]}] #{entry[:name]}\n"
             end
             embed.description = msg
           end
@@ -73,7 +74,7 @@ module Oracle
           command.event << "```"
           command.event << "#{list.number} :: #{list.name}"
           command.event << "=" * length
-          list.entries.sort.each do |entry|
+          list.entries.each do |entry|
             command.event << entry
           end
           command.event << "```"

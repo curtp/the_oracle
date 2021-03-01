@@ -10,6 +10,7 @@ module Oracle
       def entry
         instructions[1]
       end
+      
     end
   end
 end

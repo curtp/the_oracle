@@ -8,23 +8,36 @@ module Oracle
       serialize :entries, Array
 
       before_save :before_save_processing
+      after_initialize :add_missing_attributes
 
-      def add_entry(entry)
+      def add_entry(entry, weight)
         if entries.nil?
           self.entries = []
         end
-        entries.push(entry.slice(0...ENTRY_MAX_LENGTH))
+        entries.push({name: entry.slice(0...ENTRY_MAX_LENGTH), weight: weight})
+        entries.sort_by! {|entry| entry[:name]}
       end
 
       def remove_entry(entry)
         if !entries.nil?
-          entries.reject! {|list_entry| list_entry.strip.downcase.eql?(entry.strip.downcase)}
+          entries.reject! {|list_entry| list_entry[:name].strip.downcase.eql?(entry.strip.downcase)}
         end
       end
 
       # Removes all lists associated to a server
       def self.remove_all_lists_for_server(server_id)
         Oracle::Models::List.where(server_id: server_id).destroy_all
+      end
+
+      def select_answer
+        blown_out_entries = []
+        entries.each do |entry|
+          entry[:weight].to_i.times do
+            blown_out_entries.push(entry[:name])
+          end
+        end
+        OracleLogger.log.debug(blown_out_entries.inspect)
+        blown_out_entries.shuffle.sample
       end
 
       private
@@ -40,6 +53,12 @@ module Oracle
         if new_record?
           self.number = next_number
         end
+      end
+
+      def add_missing_attributes
+        return if entries.empty?
+        return if entries.first.is_a?(Hash)
+        entries.map! {|entry| entry = {name: entry, weight: 1}}
       end
 
     end

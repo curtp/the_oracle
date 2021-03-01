@@ -29,10 +29,10 @@ module Oracle
           command.event.channel.send_embed do |embed|
             embed.title = select_title
             embed.colour = rand(0..0xfffff)
-            embed.description = "**#{command.event.user.mention} asked:** '#{command.question}'.\r\n**The answer is:** '#{select_answer(list)}'"
+            embed.description = "**#{command.event.user.mention} asked:** '#{command.question}'.\r\n**The answer is:** '#{list.select_answer}'"
           end
         else
-          command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{select_answer(list)}'"
+          command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{list.select_answer}'"
         end
       end
 
@@ -41,20 +41,16 @@ module Oracle
           command.event.channel.send_embed do |embed|
             embed.title = select_title
             embed.colour = rand(0..0xfffff)
-            embed.description = "**#{command.event.user.mention}, the answer is:** '#{select_answer(list)}'"
+            embed.description = "**#{command.event.user.mention}, the answer is:** '#{list.select_answer}'"
           end
         else
-          command.event << "#{command.event.user.mention}, the answer is: '#{select_answer(list)}'"
+          command.event << "#{command.event.user.mention}, the answer is: '#{list.select_answer}'"
         end
       end
 
       def remove_question
         return if !has_manage_messages_permission?
         command.event.message.delete
-      end
-
-      def select_answer(list)
-        list.entries.shuffle.sample
       end
 
       def select_title

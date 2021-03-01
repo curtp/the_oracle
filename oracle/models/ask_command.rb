@@ -6,7 +6,7 @@ module Oracle
         instructions.size == 3 ? instructions[1] : instructions.last
       end
 
-      # THere may or may not be a question on the command
+      # There may or may not be a question on the command
       def question
         instructions.size == 3 ? instructions.last : nil
       end
