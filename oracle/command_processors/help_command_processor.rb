@@ -17,6 +17,7 @@ module Oracle
             manage_commands += "> `!o remove '[list name]'`\n"
             manage_commands += "> \n> Remove an answer from a list\n"
             manage_commands += "> `!o remove '[answer]' from '[list name]'`\n"
+            manage_commands += "> `!o remove [entry number] from [list number]`\n"
             manage_commands += "> \n> Renumber all of the lists\n"
             manage_commands += "> `!o renumber`"
             embed.add_field(name: "Manage Lists", value: manage_commands, inline: false)
