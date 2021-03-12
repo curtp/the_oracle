@@ -21,7 +21,12 @@ module Oracle
       end
 
       def remove_entry_from_list(list)
-        list.remove_entry(command.entry)
+        number = number_or_nil(command.entry)
+        if number.present?
+          list.remove_entry_by_number(command.entry.to_i)
+        else
+          list.remove_entry(command.entry)
+        end
         list.save
       end
 

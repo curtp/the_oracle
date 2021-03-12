@@ -18,6 +18,13 @@ module Oracle
         entries.sort_by! {|entry| entry[:name]}
       end
 
+      def remove_entry_by_number(number)
+        # Subtract 1 from the number so it is 0 based
+        number -= 1
+        return if number > entries.size || number < 0
+        entries.delete_at(number)
+      end
+
       def remove_entry(entry)
         if !entries.nil?
           entries.reject! {|list_entry| list_entry[:name].strip.downcase.eql?(entry.strip.downcase)}
