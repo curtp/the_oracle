@@ -64,7 +64,7 @@ module Oracle
             msg = ""
             pad = list.entries.size.to_s.length
             list.entries.each_with_index do |entry, ndx|
-              msg = msg << "#{(ndx+1).to_s.rjust(pad, "0")}︲[#{entry[:weight]}] #{entry[:name]}\n"
+              msg = msg << "`#{(ndx+1).to_s.rjust(pad, "0")}︲[#{entry[:weight]}] #{entry[:name]}`\n"
             end
             embed.description = msg
           end

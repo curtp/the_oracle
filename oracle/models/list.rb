@@ -14,7 +14,7 @@ module Oracle
         if entries.nil?
           self.entries = []
         end
-        entries.push({name: entry.slice(0...ENTRY_MAX_LENGTH), weight: weight})
+        entries.push({name: entry.slice(0...Oracle.config[:max_entry_length]), weight: weight})
         entries.sort_by! {|entry| entry[:name]}
       end
 

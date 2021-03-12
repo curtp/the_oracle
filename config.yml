@@ -4,5 +4,6 @@ answer_title:
   - "After Consulting The Cosmos..."
   - "My Sources Say..."
   - "The Tea Leaves Say..."
+max_entry_length: 1000
 log_file: "/the_oracle/logs/the_oracle.log"
 database_file: "/the_oracle/data/server_lists.db"
