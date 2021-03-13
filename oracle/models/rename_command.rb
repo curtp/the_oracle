@@ -10,6 +10,9 @@ module Oracle
         instructions.last
       end
 
+      def list_required?
+        true
+      end
     end
   end
 end
