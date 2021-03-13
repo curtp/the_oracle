@@ -57,28 +57,52 @@ module Oracle
       protected
 
       def print_list(list)
-#        if has_embed_permission?
-#          command.event.channel.send_embed do |embed|
-#            embed.title = "#{list.number} :: #{list.name}"
-#            embed.colour = rand(0..0xfffff)
-#            msg = ""
-#            pad = list.entries.size.to_s.length
-#            list.entries.each_with_index do |entry, ndx|
-#              msg = msg << "`#{(ndx+1).to_s.rjust(pad, "0")}︲[#{entry[:weight]}] #{entry[:name]}`\n"
-#            end
-#            embed.description = msg
-#          end
-#        else
-          header = "#{list.number} :: #{list.name}"
-          length = header.size
-          command.event << "```"
-          command.event << "#{list.number} :: #{list.name}"
-          command.event << "=" * length
-          list.entries.each do |entry|
-            command.event << entry
+        if has_embed_permission?
+          ndx = 0
+          wrapped = false
+          message = ""
+          title = "#{list.number} :: #{list.name}"
+          pad = list.entries.size.to_s.length
+
+          OracleLogger.log.debug("# Entries: #{list.entries.size}")
+
+          if list.entries.size == 0
+            command.event.channel.send_embed do |embed|
+              embed.title = title
+              embed.colour = rand(0..0xfffff)
+              embed.description = "No entries to display."
+            end
+            return
           end
-          command.event << "```"
-#        end
+
+          while ndx <= list.entries.size - 1 
+            OracleLogger.log.debug("ndx: #{ndx}")
+            list.entries[ndx..(list.entries.size-1)].each do |entry|
+              add_msg = "`#{(ndx+1).to_s.rjust(pad, "0")}︲[#{entry[:weight]}]` #{entry[:name]}\n"
+              if message.size + title.size + add_msg.size >= 2000
+                break
+              else
+                message += add_msg
+              end
+              ndx += 1
+            end
+
+            command.event.channel.send_embed do |embed|
+              if wrapped
+                embed.title = title << " Continued"
+              else
+                embed.title = title
+              end
+              embed.colour = rand(0..0xfffff)
+              embed.description = message
+            end
+
+            message = ""
+            wrapped = true
+          end
+        else
+          command.event << "Please assign embed permissions to the bot, then try again."
+        end
       end
 
       def validate_command
