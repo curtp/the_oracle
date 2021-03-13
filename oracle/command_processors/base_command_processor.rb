@@ -57,18 +57,18 @@ module Oracle
       protected
 
       def print_list(list)
-        if has_embed_permission?
-          command.event.channel.send_embed do |embed|
-            embed.title = "#{list.number} :: #{list.name}"
-            embed.colour = rand(0..0xfffff)
-            msg = ""
-            pad = list.entries.size.to_s.length
-            list.entries.each_with_index do |entry, ndx|
-              msg = msg << "`#{(ndx+1).to_s.rjust(pad, "0")}︲[#{entry[:weight]}] #{entry[:name]}`\n"
-            end
-            embed.description = msg
-          end
-        else
+#        if has_embed_permission?
+#          command.event.channel.send_embed do |embed|
+#            embed.title = "#{list.number} :: #{list.name}"
+#            embed.colour = rand(0..0xfffff)
+#            msg = ""
+#            pad = list.entries.size.to_s.length
+#            list.entries.each_with_index do |entry, ndx|
+#              msg = msg << "`#{(ndx+1).to_s.rjust(pad, "0")}︲[#{entry[:weight]}] #{entry[:name]}`\n"
+#            end
+#            embed.description = msg
+#          end
+#        else
           header = "#{list.number} :: #{list.name}"
           length = header.size
           command.event << "```"
@@ -78,7 +78,7 @@ module Oracle
             command.event << entry
           end
           command.event << "```"
-        end
+#        end
       end
 
       def validate_command
