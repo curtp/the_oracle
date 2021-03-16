@@ -60,7 +60,7 @@ module Oracle
       end
 
       def set_footer(embed)
-        embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "List: #{list.name}")
+        embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "From List: #{list.name}")
       end
     end
   end
