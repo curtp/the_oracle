@@ -95,6 +95,10 @@ e.g. !oracle list "even odds"
 
 !o list 1
 ```
+To display a list of available filters:
+```
+!o filter
+```
 
 To filter the lists down to only those that start with part of a name:
 ```
