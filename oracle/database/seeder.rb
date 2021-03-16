@@ -5,22 +5,26 @@ module Oracle
       def seed(server_id)
         # Add the even odds list
         list_hash = {server_id: server_id, name: "Odds - Even",
-          entries: ["No, and complication",
-            "No", "No, but benefit", "Yes, but complication", "Yes", "Yes, and benefit"]
+          entries: [{name: "No, and complication", weight: 1},
+            {name: "No", weight: 1}, {name: "No, but benefit", weight: 1},
+            {name: "Yes, but complication", weight: 1}, {name: "Yes", weight: 1}, 
+            {name: "Yes, and benefit", weight: 1}]
         }
         add_list(list_hash)
 
         # Create the Likely list
         list_hash = {server_id: server_id, name: "Odds - Likely",
-          entries: ["No",
-            "No, but benefit", "Yes, but complication", "Yes", "Yes", "Yes, and benefit"]
+          entries: [{name: "No", weight: 1}, {name: "No, but benefit", weight: 1},
+            {name: "Yes, but complication", weight: 1}, {name: "Yes", weight: 2}, 
+            {name: "Yes, and benefit", weight: 1}]
         }
         add_list(list_hash)
 
         # Create the Unlikely list
         list_hash = {server_id: server_id, name: "Odds - Unlikely",
-          entries: ["No, and complication",
-            "No", "No", "No, but benefit", "Yes, but complication", "Yes"]
+          entries: [{name: "No, and complication", weight: 1}, {name: "No", weight: 2},
+            {name: "No, but benefit", weight: 1}, {name: "Yes, but complication", weight: 1},
+            {name: "Yes", weight: 1}]
         }
         add_list(list_hash)
       end
@@ -31,7 +35,8 @@ module Oracle
         list = Oracle::Models::List.new(server_id: list_hash[:server_id],
           name: list_hash[:name])
         list_hash[:entries].each do |entry|
-          list.add_entry(entry)
+          OracleLogger.log.debug("adding entry to list: #{entry}")
+          list.add_entry(entry[:name], entry[:weight])
         end
         list.save
       end
