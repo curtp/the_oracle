@@ -30,6 +30,7 @@ module Oracle
             embed.title = select_title
             embed.colour = rand(0..0xfffff)
             embed.description = "**#{command.event.user.mention} asked:** '#{command.question}'.\r\n**The answer is:** '#{list.select_answer}'"
+            set_footer(embed)
           end
         else
           command.event << "#{command.event.user.mention} asked: '#{command.question}'. The answer is: '#{list.select_answer}'"
@@ -42,6 +43,7 @@ module Oracle
             embed.title = select_title
             embed.colour = rand(0..0xfffff)
             embed.description = "**#{command.event.user.mention}, the answer is:** '#{list.select_answer}'"
+            set_footer(embed)
           end
         else
           command.event << "#{command.event.user.mention}, the answer is: '#{list.select_answer}'"
@@ -57,6 +59,9 @@ module Oracle
         Oracle.config[:answer_title].sample
       end
 
+      def set_footer(embed)
+        embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: "List: #{list.name}")
+      end
     end
   end
 end
