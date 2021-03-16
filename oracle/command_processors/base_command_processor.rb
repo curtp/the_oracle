@@ -51,6 +51,7 @@ module Oracle
           print_list(list)
         end
 
+        OracleLogger.log.debug {"BaseCommandProcessor.process: returning result: #{result}"}
         return result
       end
 

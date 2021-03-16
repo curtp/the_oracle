@@ -106,7 +106,7 @@ module Oracle
     class FilterValidator < BaseValidator
 
       def validate
-        if command.instructions.size != 2
+        if command.instructions.size != 2 && command.instructions.size != 1
           return {valid: false,
             error_message: "To filter the lists: filter 'name'"}
         end

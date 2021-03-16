@@ -27,7 +27,9 @@ module Oracle
             view_commands += "> `!o display '[list name]'`\n> \n"
             view_commands += "> Display all lists\n"
             view_commands += "> `!o list`\n> \n"
-            view_commands += "> Filter the lists down to only those that start with part of a name\n"
+            view_commands += "> Display a list of available list filters\n"
+            view_commands += "> `!o filter`\n> \n"
+            view_commands += "> Dispaly only the lists in the filter\n"
             view_commands += "> `!o filter '[name]'`\n\u200b\n"
             embed.add_field(name: "View Lists", value: view_commands, inline: false)
             ask_commands = "> Ask the oracle a question from a list\n"
