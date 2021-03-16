@@ -27,6 +27,8 @@ module Oracle
               processor = RenumberCommandProcessor.new(command)
             when "stats"
               processor = StatsCommandProcessor.new(command)
+            when "filter"
+              processor = FilterCommandProcessor.new(command)
             else
               processor = HelpCommandProcessor.new(command)
             end

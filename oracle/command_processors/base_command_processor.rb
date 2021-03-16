@@ -56,6 +56,30 @@ module Oracle
 
       protected
 
+      def print_server_lists(lists)
+        if has_embed_permission?
+          command.event.channel.send_embed do |embed|
+            embed.title = "Oracle Lists"
+            embed.colour = rand(0..0xfffff)
+            msg = ""
+            pad = lists.maximum(:number).to_s.length
+            lists.each do |list|
+              msg = msg << "`#{list.number.to_s.rjust(pad, "0")} :: #{list.name}`\n"
+            end
+            embed.description = msg
+          end
+        else
+          command.event << "```"
+          command.event << "Oracle Lists"
+          command.event << "====================="
+          pad = lists.maximum(:number).to_s.length
+          lists.each do |list|
+            command.event << "#{list.number.to_s.rjust(pad)} :: #{list.name}"
+          end
+          command.event << "```"
+        end
+      end
+
       def print_list(list)
         if has_embed_permission?
           ndx = 0

@@ -31,6 +31,8 @@ module Oracle
           validator = RenumberValidator.new(command)
         when "stats"
           validator = StatsValidator.new(command)
+        when "filter"
+          validator = FilterValidator.new(command)
         else
           return {valid: false, error_message: "Unknown command"}
         end
@@ -96,6 +98,17 @@ module Oracle
         if command.instructions.size != 2 && command.instructions.size != 1
           return {valid: false,
             error_message: "To display a list: display 'list name'"}
+        end
+        return {valid: true, error_message: ""}
+      end
+    end
+
+    class FilterValidator < BaseValidator
+
+      def validate
+        if command.instructions.size != 2
+          return {valid: false,
+            error_message: "To filter the lists: filter 'name'"}
         end
         return {valid: true, error_message: ""}
       end

@@ -21,6 +21,8 @@ module Oracle
           return RenumberCommand.new(event)
         when "stats"
           return StatsCommand.new(event)
+        when "filter"
+          return FilterCommand.new(event)
         else
           return HelpCommand.new(event)
         end

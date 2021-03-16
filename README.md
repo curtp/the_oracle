@@ -96,6 +96,12 @@ e.g. !oracle list "even odds"
 !o list 1
 ```
 
+To filter the lists down to only those that start with part of a name:
+```
+!o filter "[name]"
+e.g. !oracle filter "character"
+```
+
 To rename a list:
 ```
 !oracle rename "[list name]" to "[new list name]"
